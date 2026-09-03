@@ -23799,53 +23799,7 @@ async function syncToFeishu() {
     if (btn) { btn.disabled = false; btn.textContent = '\u2191 Sync to Feishu'; }
   }
 }
-function autoSyncToFeishu() {
-  try {
-    var config = loadFeishuConfig();
-    if (!config.app_id || !config.app_secret || !config.base_token || !config.table_id) return;
-    // 静默后台同步，不阻塞UI
-    syncToFeishuInternal(config, function(success, msg) {
-      // 静默同步，成功不提示，失败也不打断用户
-    });
-  } catch(e) {
-    // 静默失败，不影响用户答题
-  }
-}
 
-function syncToFeishuInternal(config, callback) {
-  try {
-    var exportData = buildExportData();
-    if (!exportData || !exportData.studentInfo) {
-      if (callback) callback(false, 'No data');
-      return;
-    }
-    getFeishuTenantToken(config).then(function(token) {
-      var studentId = exportData.studentInfo.studentId || exportData.studentInfo.name || 'unknown';
-      var fields = buildBitableFields(exportData);
-      searchBitableRecord(token, config.base_token, config.table_id, studentId).then(function(recordId) {
-        if (recordId) {
-          updateBitableRecord(token, config.base_token, config.table_id, recordId, fields).then(function() {
-            if (callback) callback(true, 'Updated');
-          }).catch(function(err) {
-            if (callback) callback(false, String(err));
-          });
-        } else {
-          createBitableRecord(token, config.base_token, config.table_id, fields).then(function() {
-            if (callback) callback(true, 'Created');
-          }).catch(function(err) {
-            if (callback) callback(false, String(err));
-          });
-        }
-      }).catch(function(err) {
-        if (callback) callback(false, String(err));
-      });
-    }).catch(function(err) {
-      if (callback) callback(false, String(err));
-    });
-  } catch(e) {
-    if (callback) callback(false, String(e));
-  }
-}
 
 
 // Auto-fill Feishu config inputs when dashboard renders
@@ -23896,6 +23850,54 @@ document.addEventListener("DOMContentLoaded", function() {
     logoutTopBtn.addEventListener("click", logoutStudentV7);
   }
   
+
+function autoSyncToFeishu() {
+  try {
+    var config = loadFeishuConfig();
+    if (!config.app_id || !config.app_secret || !config.base_token || !config.table_id) return;
+    // 静默后台同步，不阻塞UI
+    syncToFeishuInternal(config, function(success, msg) {
+      // 静默同步，成功不提示，失败也不打断用户
+    });
+  } catch(e) {
+    // 静默失败，不影响用户答题
+  }
+}
+
+function syncToFeishuInternal(config, callback) {
+  try {
+    var exportData = buildExportData();
+    if (!exportData || !exportData.studentInfo) {
+      if (callback) callback(false, 'No data');
+      return;
+    }
+    getFeishuTenantToken(config).then(function(token) {
+      var studentId = exportData.studentInfo.studentId || exportData.studentInfo.name || 'unknown';
+      var fields = buildBitableFields(exportData);
+      searchBitableRecord(token, config.base_token, config.table_id, studentId).then(function(recordId) {
+        if (recordId) {
+          updateBitableRecord(token, config.base_token, config.table_id, recordId, fields).then(function() {
+            if (callback) callback(true, 'Updated');
+          }).catch(function(err) {
+            if (callback) callback(false, String(err));
+          });
+        } else {
+          createBitableRecord(token, config.base_token, config.table_id, fields).then(function() {
+            if (callback) callback(true, 'Created');
+          }).catch(function(err) {
+            if (callback) callback(false, String(err));
+          });
+        }
+      }).catch(function(err) {
+        if (callback) callback(false, String(err));
+      });
+    }).catch(function(err) {
+      if (callback) callback(false, String(err));
+    });
+  } catch(e) {
+    if (callback) callback(false, String(e));
+  }
+}
 
 // ============================================================
 // DATA EXPORT / IMPORT (Student End)
