@@ -23754,51 +23754,7 @@ async function updateBitableRecord(token, baseToken, tableId, recordId, fields) 
   return data.data;
 }
 
-async function syncToFeishu() {
-  var config = loadFeishuConfig();
-  if (!config.app_id || !config.app_secret || !config.base_token || !config.table_id) {
-    showFeishuStatus('Please fill in all Feishu settings first.', 'error');
-    return;
-  }
-
-  var btn = document.getElementById('feishuSyncBtn');
-  if (btn) { btn.disabled = true; btn.textContent = 'Syncing...'; }
-  showFeishuStatus('Syncing to Feishu Bitable...', 'info');
-
-  try {
-    var exportData = buildExportData();
-    if (!exportData) {
-      throw new Error('No student data to sync.');
-    }
-
-    var studentId = exportData.studentInfo && exportData.studentInfo.studentId
-      ? exportData.studentInfo.studentId
-      : (exportData.studentInfo && exportData.studentInfo.name ? exportData.studentInfo.name : 'unknown');
-
-    if (!studentId || studentId === 'unknown') {
-      throw new Error('Student ID is required for sync. Please set up your profile first.');
-    }
-
-    var fields = buildBitableFields(exportData);
-    var token = await getFeishuTenantToken(config);
-
-    // Search for existing record
-    var existing = await searchBitableRecord(token, config.base_token, config.table_id, studentId);
-
-    if (existing && existing.record_id) {
-      await updateBitableRecord(token, config.base_token, config.table_id, existing.record_id, fields);
-      showFeishuStatus('Data updated successfully in Feishu Bitable!', 'success');
-    } else {
-      await createBitableRecord(token, config.base_token, config.table_id, fields);
-      showFeishuStatus('Data synced to Feishu Bitable successfully!', 'success');
-    }
-  } catch(err) {
-    console.error('Feishu sync error:', err);
-    showFeishuStatus('Sync failed: ' + err.message, 'error');
-  } finally {
-    if (btn) { btn.disabled = false; btn.textContent = '\u2191 Sync to Feishu'; }
-  }
-}
+async 
 
 
 
@@ -23850,6 +23806,52 @@ document.addEventListener("DOMContentLoaded", function() {
     logoutTopBtn.addEventListener("click", logoutStudentV7);
   }
   
+
+function syncToFeishu() {
+  var config = loadFeishuConfig();
+  if (!config.app_id || !config.app_secret || !config.base_token || !config.table_id) {
+    showFeishuStatus('Please fill in all Feishu settings first.', 'error');
+    return;
+  }
+
+  var btn = document.getElementById('feishuSyncBtn');
+  if (btn) { btn.disabled = true; btn.textContent = 'Syncing...'; }
+  showFeishuStatus('Syncing to Feishu Bitable...', 'info');
+
+  try {
+    var exportData = buildExportData();
+    if (!exportData) {
+      throw new Error('No student data to sync.');
+    }
+
+    var studentId = exportData.studentInfo && exportData.studentInfo.studentId
+      ? exportData.studentInfo.studentId
+      : (exportData.studentInfo && exportData.studentInfo.name ? exportData.studentInfo.name : 'unknown');
+
+    if (!studentId || studentId === 'unknown') {
+      throw new Error('Student ID is required for sync. Please set up your profile first.');
+    }
+
+    var fields = buildBitableFields(exportData);
+    var token = await getFeishuTenantToken(config);
+
+    // Search for existing record
+    var existing = await searchBitableRecord(token, config.base_token, config.table_id, studentId);
+
+    if (existing && existing.record_id) {
+      await updateBitableRecord(token, config.base_token, config.table_id, existing.record_id, fields);
+      showFeishuStatus('Data updated successfully in Feishu Bitable!', 'success');
+    } else {
+      await createBitableRecord(token, config.base_token, config.table_id, fields);
+      showFeishuStatus('Data synced to Feishu Bitable successfully!', 'success');
+    }
+  } catch(err) {
+    console.error('Feishu sync error:', err);
+    showFeishuStatus('Sync failed: ' + err.message, 'error');
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = '\u2191 Sync to Feishu'; }
+  }
+}
 
 function autoSyncToFeishu() {
   try {
