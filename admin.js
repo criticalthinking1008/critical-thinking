@@ -11436,9 +11436,26 @@ function showStudentModalV7(s) {
   if (existing) existing.remove();
   
   document.body.insertAdjacentHTML('beforeend', modalHtml);
-  document.getElementById("studentDetailModal").addEventListener("click", function(e) {
+  var detailModal = document.getElementById("studentDetailModal");
+  detailModal.addEventListener("click", function(e) {
     if (e.target === this) closeStudentModal();
   });
+  // Also bind close button with addEventListener (more reliable than inline onclick)
+  var closeBtn = detailModal.querySelector('[onclick*="closeStudentModal"]');
+  if (closeBtn) {
+    closeBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      closeStudentModal();
+    });
+  }
+  var editBtn = detailModal.querySelector('[onclick*="editStudentInfo"]');
+  if (editBtn) {
+    editBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      var sid = this.getAttribute("data-edit-student");
+      editStudentInfo(sid);
+    });
+  }
 }
 
 
