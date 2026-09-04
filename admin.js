@@ -11511,14 +11511,18 @@ function saveStudentEdit(studentId) {
   closeEditStudentModal();
   
   // Refresh student list
-  if (typeof renderStudentListV7 === "function") renderStudentListV7();
-  if (typeof renderAdminDashboardV7 === "function" && document.getElementById("adminContent")) {
-    // Check if we are on students page or dashboard
-  }
-  // Re-render current view
   var area = document.getElementById("adminContent");
-  if (area && typeof renderStudentsPageV7 === "function") {
-    renderStudentsPageV7(area);
+  if (area && typeof renderStudentListV7 === "function") {
+    renderStudentListV7(area);
+  }
+  // Also refresh student detail modal if open
+  if (AdminState.selectedStudent && AdminState.selectedStudent.id === studentId) {
+    var allStudents = v7AdminGetAllStudentsForDisplay();
+    var updated = allStudents.find(function(st) { return st.id === studentId; });
+    if (updated) {
+      AdminState.selectedStudent = updated;
+      showStudentModalV7(updated);
+    }
   }
 }
 
