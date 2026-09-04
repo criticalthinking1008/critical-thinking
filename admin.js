@@ -11486,6 +11486,42 @@ function closeStudentModal() {
   AdminState.selectedStudent = null;
 }
 
+function closeEditStudentModal() {
+  var m = document.getElementById("editStudentModal");
+  if (m) m.remove();
+}
+
+function saveStudentEdit(studentId) {
+  var students = v7AdminGetStudents();
+  var stu = students[studentId];
+  if (!stu) { alert("Student not found."); return; }
+  
+  var newName = document.getElementById("editStudentName").value.trim();
+  var newClass = document.getElementById("editStudentClass").value;
+  
+  if (!newName) { alert("Name cannot be empty."); return; }
+  
+  stu.name = newName;
+  stu.classId = newClass;
+  
+  // Save to localStorage
+  localStorage.setItem(ADMIN_STORAGE_KEY_V7, JSON.stringify(AdminV7));
+  
+  // Close modal
+  closeEditStudentModal();
+  
+  // Refresh student list
+  if (typeof renderStudentListV7 === "function") renderStudentListV7();
+  if (typeof renderAdminDashboardV7 === "function" && document.getElementById("adminContent")) {
+    // Check if we are on students page or dashboard
+  }
+  // Re-render current view
+  var area = document.getElementById("adminContent");
+  if (area && typeof renderStudentsPageV7 === "function") {
+    renderStudentsPageV7(area);
+  }
+}
+
 // ----- Enhanced Dashboard -----
 function renderAdminDashboardV7(area) {
   var students = v7AdminGetFilteredStudents();
@@ -16209,7 +16245,8 @@ function escapeHtml(str) {
 
 
 // Teacher AI Tutor init
-document.getElementById("teacherAiTutorToggle").addEventListener("click", toggleTeacherAITutor);
+var teacherAiTutorToggle = document.getElementById("teacherAiTutorToggle");
+  if (teacherAiTutorToggle) teacherAiTutorToggle.addEventListener("click", toggleTeacherAITutor);
 document.getElementById("teacherAiTutorClose").addEventListener("click", toggleTeacherAITutor);
 document.getElementById("teacherAiSend").addEventListener("click", sendTeacherAIMessage);
 document.getElementById("teacherAiInput").addEventListener("keypress", function(e) {
