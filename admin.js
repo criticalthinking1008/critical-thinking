@@ -11481,14 +11481,31 @@ function editStudentInfo(studentId) {
 
 
 function closeStudentModal() {
+  console.log('closeStudentModal called');
+  // 先尝试标准ID
   var m = document.getElementById("studentDetailModal");
-  if (m) m.remove();
-  AdminState.selectedStudent = null;
+  if (m) { m.remove(); console.log('Removed studentDetailModal'); }
+  // 兜底：移除所有 modal-overlay
+  var overlays = document.querySelectorAll('.modal-overlay');
+  console.log('Found', overlays.length, 'modal overlays');
+  overlays.forEach(function(ov) {
+    // 只移除详情类弹窗（不含 edit/add/import 等有特定id的）
+    var id = ov.id;
+    if (id === 'studentDetailModal' || !id || id === '') {
+      ov.remove();
+      console.log('Removed overlay:', id || '(no id)');
+    }
+  });
+  if (typeof AdminState !== 'undefined') {
+    AdminState.selectedStudent = null;
+  }
 }
 
 function closeEditStudentModal() {
+  console.log('closeEditStudentModal called');
   var m = document.getElementById("editStudentModal");
-  if (m) m.remove();
+  if (m) { m.remove(); console.log('Removed editStudentModal'); }
+  else { console.log('editStudentModal not found!'); }
 }
 
 function saveStudentEdit(studentId) {
