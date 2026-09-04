@@ -23754,10 +23754,6 @@ async function updateBitableRecord(token, baseToken, tableId, recordId, fields) 
   return data.data;
 }
 
-async 
-
-
-
 // Auto-fill Feishu config inputs when dashboard renders
 function autoFillFeishuConfig() {
   var config = loadFeishuConfig();
