@@ -11505,7 +11505,7 @@ function saveStudentEdit(studentId) {
   stu.classId = newClass;
   
   // Save to localStorage
-  localStorage.setItem(ADMIN_STORAGE_KEY_V7, JSON.stringify(AdminV7));
+  v7AdminSaveStudents(students);
   
   // Close modal
   closeEditStudentModal();
@@ -16247,9 +16247,12 @@ function escapeHtml(str) {
 // Teacher AI Tutor init
 var teacherAiTutorToggle = document.getElementById("teacherAiTutorToggle");
   if (teacherAiTutorToggle) teacherAiTutorToggle.addEventListener("click", toggleTeacherAITutor);
-document.getElementById("teacherAiTutorClose").addEventListener("click", toggleTeacherAITutor);
-document.getElementById("teacherAiSend").addEventListener("click", sendTeacherAIMessage);
-document.getElementById("teacherAiInput").addEventListener("keypress", function(e) {
+var teacherAiTutorClose = document.getElementById("teacherAiTutorClose");
+  if (teacherAiTutorClose) teacherAiTutorClose.addEventListener("click", toggleTeacherAITutor);
+var teacherAiSend = document.getElementById("teacherAiSend");
+  if (teacherAiSend) teacherAiSend.addEventListener("click", sendTeacherAIMessage);
+var teacherAiInput = document.getElementById("teacherAiInput");
+  if (teacherAiInput) teacherAiInput.addEventListener("keypress", function(e) {
   if (e.key === "Enter") sendTeacherAIMessage();
 });
 initTeacherAITutor();
