@@ -16975,7 +16975,7 @@ function submitAnswer() {
   saveStudent();
   renderQuiz();
   // Auto sync to Feishu after each answer
-  autoSyncToFeishu();
+  if (window.autoSyncToFeishu) window.autoSyncToFeishu();
 }
 
 function nextQuestion() {
@@ -23865,6 +23865,8 @@ function autoSyncToFeishu() {
     // 静默失败，不影响用户答题
   }
 }
+  window.autoSyncToFeishu = autoSyncToFeishu;
+  window.syncToFeishuInternal = syncToFeishuInternal;
 
 function syncToFeishuInternal(config, callback) {
   try {
