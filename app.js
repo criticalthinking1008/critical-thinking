@@ -23807,7 +23807,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   
 
-function syncToFeishu() {
+async function syncToFeishu() {
   var config = loadFeishuConfig();
   if (!config.app_id || !config.app_secret || !config.base_token || !config.table_id) {
     showFeishuStatus('Please fill in all Feishu settings first.', 'error');
