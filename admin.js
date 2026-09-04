@@ -11511,7 +11511,7 @@ function saveStudentEdit(studentId) {
   closeEditStudentModal();
   
   // Refresh student list
-  var area = document.getElementById("adminContent");
+  var area = document.getElementById("contentArea");
   if (area && typeof renderStudentListV7 === "function") {
     renderStudentListV7(area);
   }
