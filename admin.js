@@ -16259,5 +16259,13 @@ var teacherAiInput = document.getElementById("teacherAiInput");
   if (teacherAiInput) teacherAiInput.addEventListener("keypress", function(e) {
   if (e.key === "Enter") sendTeacherAIMessage();
 });
+
+// === Global function exposure for inline onclick handlers ===
+window.closeStudentModal = closeStudentModal;
+window.editStudentInfo = editStudentInfo;
+window.closeEditStudentModal = closeEditStudentModal;
+window.saveStudentEdit = saveStudentEdit;
+window.viewStudentV7 = viewStudentV7;
+
 initTeacherAITutor();
 
