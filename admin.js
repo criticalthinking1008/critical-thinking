@@ -11342,8 +11342,8 @@ function showStudentModalV7(s) {
   html += '<div style="flex:1;"><div class="student-detail-name">' + s.name + '</div>';
   html += '<div class="student-detail-email">' + s.id + ' &middot; <span class="badge badge-info">' + s.classId + '</span></div></div>';
   html += '<div style="display:flex; gap:6px;">';
-  html += '<button class="btn btn-outline btn-sm" data-edit-student="' + s.id + '" onclick="editStudentInfo(this.dataset.editStudent)">Edit</button>';
-  html += '<button class="btn btn-outline btn-sm" onclick="closeStudentModal()">Close</button>';
+  html += '<button class="btn btn-outline btn-sm" data-edit-student="' + s.id + '" onclick="window.editStudentInfo(this.dataset.editStudent)">Edit</button>';
+  html += '<button class="btn btn-outline btn-sm" onclick="window.closeStudentModal()">Close</button>';
   html += '</div>';
   html += '</div>';
 
@@ -11453,9 +11453,9 @@ function editStudentInfo(studentId) {
   }
   
   var html = "";
-  html += '<div class="modal-overlay show" id="editStudentModal" onclick="if(event.target===this)closeEditStudentModal()">';
+  html += '<div class="modal-overlay show" id="editStudentModal" onclick="if(event.target===this)window.closeEditStudentModal()">';
   html += '<div class="modal" style="max-width:420px;">';
-  html += '<div class="modal-header"><div class="modal-title">Edit Student</div><button class="modal-close" onclick="closeEditStudentModal()">&times;</button></div>';
+  html += '<div class="modal-header"><div class="modal-title">Edit Student</div><button class="modal-close" onclick="window.closeEditStudentModal()">&times;</button></div>';
   html += '<div class="modal-body">';
   html += '<div class="form-group"><label class="form-label">Student ID</label>';
   html += '<input type="text" class="form-input" value="' + studentId + '" disabled></div>';
@@ -11469,8 +11469,8 @@ function editStudentInfo(studentId) {
   html += '</select></div>';
   html += '</div>';
   html += '<div class="modal-footer">';
-  html += '<button class="btn btn-outline" onclick="closeEditStudentModal()">Cancel</button>';
-  html += '<button class="btn btn-primary" id="saveStudentEditBtn" data-save-sid="' + studentId + '" onclick="saveStudentEdit(this.dataset.saveSid)">Save</button>';
+  html += '<button class="btn btn-outline" onclick="window.closeEditStudentModal()">Cancel</button>';
+  html += '<button class="btn btn-primary" id="saveStudentEditBtn" data-save-sid="' + studentId + '" onclick="window.saveStudentEdit(this.dataset.saveSid)">Save</button>';
   html += '</div>';
   html += '</div></div>';
   
@@ -13512,7 +13512,7 @@ function showStudentModal(s) {
   html += '<div class="student-detail-avatar">' + initials + '</div>';
   html += '<div style="flex:1;"><div class="student-detail-name">' + s.name + '</div>';
   html += '<div class="student-detail-email">' + s.email + '</div></div>';
-  html += '<button class="btn btn-outline btn-sm" onclick="closeStudentModal()">Close</button>';
+  html += '<button class="btn btn-outline btn-sm" onclick="window.closeStudentModal()">Close</button>';
   html += '</div>';
 
   html += '<div class="grid-2">';
@@ -13601,7 +13601,7 @@ function showStudentModal(s) {
   var modalHtml = '<div class="modal-overlay show" id="studentModal">' +
     '<div class="modal">' +
     '<div class="modal-header"><div class="modal-title">Student Details</div>' +
-    '<button class="modal-close" onclick="closeStudentModal()">&times;</button></div>' +
+    '<button class="modal-close" onclick="window.closeStudentModal()">&times;</button></div>' +
     '<div class="modal-body">' + html + '</div>' +
     '</div></div>';
   
