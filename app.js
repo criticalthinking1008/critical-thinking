@@ -15763,7 +15763,7 @@ function renderDashboard(area) {
 
   
   html += '<div class="learning-card" onclick="navigateTo(\'chapter7\')">';
-  html += '<div class="learning-card-icon">&#9455;</div>';
+  html += '<div class="learning-card-icon">&#9318;</div>';
   html += '<div class="learning-card-title">Chapter 7: Analyzing Arguments</div>';
   html += '<div class="learning-card-desc">Diagramming arguments, identifying premises, and evaluating argument structure.</div>';
   html += '<div class="learning-card-progress"><div class="learning-card-progress-fill" style="width:' + ch7Pct + '%"></div></div>';
@@ -15771,7 +15771,7 @@ function renderDashboard(area) {
   html += '</div>';
 
   html += '<div class="learning-card" onclick="navigateTo(\'chapter8\')">';
-  html += '<div class="learning-card-icon">&#9456;</div>';
+  html += '<div class="learning-card-icon">&#9319;</div>';
   html += '<div class="learning-card-title">Chapter 8: Inductive Reasoning</div>';
   html += '<div class="learning-card-desc">Statistical reasoning, analogical arguments, and causal reasoning.</div>';
   html += '<div class="learning-card-progress"><div class="learning-card-progress-fill" style="width:' + ch8Pct + '%"></div></div>';
@@ -15779,7 +15779,7 @@ function renderDashboard(area) {
   html += '</div>';
 
   html += '<div class="learning-card" onclick="navigateTo(\'chapter9\')">';
-  html += '<div class="learning-card-icon">&#9744;</div>';
+  html += '<div class="learning-card-icon">&#9320;</div>';
   html += '<div class="learning-card-title">Chapter 9: Categorical Logic</div>';
   html += '<div class="learning-card-desc">Categorical statements, Venn diagrams, and syllogistic reasoning.</div>';
   html += '<div class="learning-card-progress"><div class="learning-card-progress-fill" style="width:' + ch9Pct + '%"></div></div>';
@@ -15787,7 +15787,7 @@ function renderDashboard(area) {
   html += '</div>';
 
   html += '<div class="learning-card" onclick="navigateTo(\'chapter10\')">';
-  html += '<div class="learning-card-icon">&#9654;</div>';
+  html += '<div class="learning-card-icon">&#9321;</div>';
   html += '<div class="learning-card-title">Chapter 10: Propositional Logic</div>';
   html += '<div class="learning-card-desc">Truth tables, logical connectives, and deductive proof methods.</div>';
   html += '<div class="learning-card-progress"><div class="learning-card-progress-fill" style="width:' + ch10Pct + '%"></div></div>';
